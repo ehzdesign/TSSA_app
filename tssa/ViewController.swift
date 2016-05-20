@@ -23,17 +23,17 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     
     //scroll view to hold wizard questions
-    @IBOutlet weak var wizardScrollView: UIScrollView!
+    var wizardScrollView: UIScrollView! = UIScrollView()
     
     
-    @IBOutlet weak var pageControl: UIPageControl!
+    var pageControl: UIPageControl! = UIPageControl()
     //    var pageControl : UIPageControl = UIPageControl(frame: CGRectMake(50, 300, 200, 50))
     
     //create variable to access the wizard questions
     let wizardQuestion = wizardQuestionModel()
     
     
-    @IBOutlet weak var wizardContinueButton: UIButton!
+    var wizardContinueButton: UIButton! = UIButton()
     
     
     
@@ -78,6 +78,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         
         //create size of scroll view
         self.wizardScrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 140)
+        
+        //add scroll view to viewController
+        self.view.addSubview(wizardScrollView)
         
         //get height of scroll view and store it
         //        let wizardScrollViewHeight = self.wizardScrollView.frame.height
