@@ -45,6 +45,8 @@
 		80F7DE001CEEC68F00036D48 /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F7DDE31CEEC68F00036D48 /* TransitionZoom.swift */; };
 		80F7DE011CEEC68F00036D48 /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F7DDE41CEEC68F00036D48 /* UnwindSegue.swift */; };
 		80F7DE031CEEC76E00036D48 /* wizardQuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F7DE021CEEC76E00036D48 /* wizardQuestionModel.swift */; };
+		80F7DE051CEEC87200036D48 /* buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F7DE041CEEC87200036D48 /* buttons.swift */; };
+		80F7DE071CEEC8AA00036D48 /* homeSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F7DE061CEEC8AA00036D48 /* homeSetupData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +112,8 @@
 		80F7DDE31CEEC68F00036D48 /* TransitionZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionZoom.swift; sourceTree = "<group>"; };
 		80F7DDE41CEEC68F00036D48 /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
 		80F7DE021CEEC76E00036D48 /* wizardQuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = wizardQuestionModel.swift; sourceTree = "<group>"; };
+		80F7DE041CEEC87200036D48 /* buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = buttons.swift; path = tssa/buttons.swift; sourceTree = "<group>"; };
+		80F7DE061CEEC8AA00036D48 /* homeSetupData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = homeSetupData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 				80F7DDAA1CEEC29C00036D48 /* tssaTests */,
 				80F7DDB51CEEC29C00036D48 /* tssaUITests */,
 				80F7DD941CEEC29B00036D48 /* Products */,
+				80F7DE041CEEC87200036D48 /* buttons.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -163,6 +168,7 @@
 				80F7DDC61CEEC68F00036D48 /* Spring */,
 				80F7DD961CEEC29C00036D48 /* AppDelegate.swift */,
 				80F7DD981CEEC29C00036D48 /* ViewController.swift */,
+				80F7DE061CEEC8AA00036D48 /* homeSetupData.swift */,
 				80F7DDC41CEEC5CE00036D48 /* questionModel.swift */,
 				80F7DE021CEEC76E00036D48 /* wizardQuestionModel.swift */,
 				80F7DD9A1CEEC29C00036D48 /* Main.storyboard */,
@@ -387,6 +393,8 @@
 				80F7DDE51CEEC68F00036D48 /* AsyncButton.swift in Sources */,
 				80F7DDE61CEEC68F00036D48 /* AsyncImageView.swift in Sources */,
 				80F7DDEE1CEEC68F00036D48 /* DesignableTextView.swift in Sources */,
+				80F7DE071CEEC8AA00036D48 /* homeSetupData.swift in Sources */,
+				80F7DE051CEEC87200036D48 /* buttons.swift in Sources */,
 				80F7DDFE1CEEC68F00036D48 /* SpringView.swift in Sources */,
 				80F7DDFD1CEEC68F00036D48 /* SpringTextView.swift in Sources */,
 				80F7DDF21CEEC68F00036D48 /* KeyboardLayoutConstraint.swift in Sources */,
