@@ -13,6 +13,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     let homeSetupData = NSUserDefaults.standardUserDefaults()
     
+    //screen size
+    let screenSize: CGRect = UIScreen.mainScreen().bounds
     
     
     let buttonModel = buttons()
@@ -26,15 +28,18 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     var wizardScrollView: UIScrollView! = UIScrollView()
     
     
-    var pageControl: UIPageControl! = UIPageControl()
-    //    var pageControl : UIPageControl = UIPageControl(frame: CGRectMake(50, 300, 200, 50))
+    //var pageControl: UIPageControl! = UIPageControl()
+    var pageControl : UIPageControl = UIPageControl()
+    
+   
+    
+    
     
     //create variable to access the wizard questions
     let wizardQuestion = wizardQuestionModel()
     
     
-    var wizardContinueButton: UIButton! = UIButton()
-    
+    @IBOutlet weak var wizardContinueButton: UIButton!
     
     
     // array of names to be given to every new view (wizard question)
@@ -49,7 +54,16 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //get screen dimensions
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
         
+        //add size and position of pageControl
+        pageControl.frame = CGRectMake(0, 40, screenWidth, 20)
+        
+        
+        //add pageControl to view
+        self.view.addSubview(pageControl)
         
         print("does home have basement = \(homeSetupData.boolForKey("hasBasement"))")
         
@@ -89,7 +103,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         let wizardScrollViewWidth = self.wizardScrollView.frame.width
         
         //store height of wizard question view based on scroll view height
-        let wizardQuestionViewHeight = self.wizardScrollView.frame.height * 88/100
+        let wizardQuestionViewHeight = self.wizardScrollView.frame.height * 80/100
         
         
         
@@ -170,6 +184,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 
                 
                 
+                
             }
             else if (wizardQuestion.question[index].count == 3) {
                 
@@ -177,6 +192,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 
                 //element.addSubview(element.additionalInfoTopLabel)
                 element.addSubview(element.additionalInfoBottomLabel)
+              
+                
                 element.additionalInfoTopLabel.text = wizardQuestion.question[index][1]
                 element.additionalInfoTopLabel.textColor = wizardQuestion.upperTextColor[index]
                 element.additionalInfoBottomLabel.text = wizardQuestion.question[index][2]
@@ -383,9 +400,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         
         //delay the changing  of page to allow for button animation
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(1), target: self, selector: #selector(ViewController.changePage as (ViewController) -> () -> ()), userInfo: nil, repeats: false)
-        
-        
-        
         
         
     }

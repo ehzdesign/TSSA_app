@@ -93,7 +93,7 @@ class QuestionView: UIView {
         self.additionalInfoBottomLabel.textAlignment = .Center
         self.additionalInfoBottomLabel.font = UIFont(name: "Futura", size: fontSize - 3)
         
-        self.additionalInfoBottomLabel.frame = CGRectMake(15, originYQuestionLabel + 100, self.frame.width - 30, 60)
+        self.additionalInfoBottomLabel.frame = CGRectMake(15, 10, self.frame.width - 30, 60)
         
         
         //create wizard question image
@@ -101,8 +101,7 @@ class QuestionView: UIView {
         wizardImage.frame = CGRectMake(self.frame.width/2 - 60, self.frame.height - 130, 120, 120)
         wizardImage.contentMode = .ScaleAspectFit
         wizardImage.image = image
-        
-        
+       
         
     }
     
