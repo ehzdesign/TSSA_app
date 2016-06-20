@@ -59,7 +59,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     
     //text label for current item in picker view
     let currentPickerItemLabel = UILabel()
-
+    
+   
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,6 +145,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         
         self.pickerView.font = UIFont(name: "HelveticaNeue-Light", size: 20)!
         self.pickerView.highlightedFont = UIFont(name: "HelveticaNeue", size: 20)!
+      
         self.pickerView.pickerViewStyle = .Wheel
         self.pickerView.maskDisabled = false
         self.pickerView.reloadData()
@@ -197,7 +201,11 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
                 element.addSubview(currentPickerItemLabel)
                 currentPickerItemLabel.frame = CGRectMake(0, 300, screenWidth, 30)
                 currentPickerItemLabel.textAlignment = .Center
-
+                
+                //initialize label with name of first icon on load
+                currentPickerItemLabel.text = itemIconsArray[0]
+                
+                
                 
                 
                 

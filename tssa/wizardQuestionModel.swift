@@ -17,7 +17,7 @@ struct wizardQuestionModel {
         ["Select your CO environment"],
         ["Do you have a basement?"],
         ["Do you have a garage?"],
-        ["How many floors do you have?","(not including basement)"],
+        ["How many stories does your home have?","(not including basement)"],
         ["Every floor should be equipped with at least 1 CO and 1 smoke detector", "Did you know?", "dont worry we set all that up for you already!"],
         ["Add items to your floor"],
         ["Congratulations you are all set up!"]
