@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		804181941D17AE6B0014FCDE /* AKPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804181931D17AE6B0014FCDE /* AKPickerView.swift */; };
 		80F7DD971CEEC29C00036D48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F7DD961CEEC29C00036D48 /* AppDelegate.swift */; };
 		80F7DD991CEEC29C00036D48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F7DD981CEEC29C00036D48 /* ViewController.swift */; };
 		80F7DD9C1CEEC29C00036D48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80F7DD9A1CEEC29C00036D48 /* Main.storyboard */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		804181931D17AE6B0014FCDE /* AKPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPickerView.swift; sourceTree = "<group>"; };
 		80F7DD931CEEC29B00036D48 /* tssa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tssa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80F7DD961CEEC29C00036D48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80F7DD981CEEC29C00036D48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				80F7DDC61CEEC68F00036D48 /* Spring */,
 				80F7DD961CEEC29C00036D48 /* AppDelegate.swift */,
+				804181931D17AE6B0014FCDE /* AKPickerView.swift */,
 				80F7DD981CEEC29C00036D48 /* ViewController.swift */,
 				80F7DE061CEEC8AA00036D48 /* homeSetupData.swift */,
 				80F7DDC41CEEC5CE00036D48 /* questionModel.swift */,
@@ -400,6 +403,7 @@
 				80F7DDF21CEEC68F00036D48 /* KeyboardLayoutConstraint.swift in Sources */,
 				80F7DDF91CEEC68F00036D48 /* SpringButton.swift in Sources */,
 				80F7DDF81CEEC68F00036D48 /* SpringAnimation.swift in Sources */,
+				804181941D17AE6B0014FCDE /* AKPickerView.swift in Sources */,
 				80F7DDEA1CEEC68F00036D48 /* DesignableImageView.swift in Sources */,
 				80F7DD971CEEC29C00036D48 /* AppDelegate.swift in Sources */,
 				80F7DE031CEEC76E00036D48 /* wizardQuestionModel.swift in Sources */,
@@ -629,6 +633,7 @@
 				80F7DDBD1CEEC29C00036D48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		80F7DDBE1CEEC29C00036D48 /* Build configuration list for PBXNativeTarget "tssaTests" */ = {
 			isa = XCConfigurationList;
@@ -637,6 +642,7 @@
 				80F7DDC01CEEC29C00036D48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		80F7DDC11CEEC29C00036D48 /* Build configuration list for PBXNativeTarget "tssaUITests" */ = {
 			isa = XCConfigurationList;
@@ -645,6 +651,7 @@
 				80F7DDC31CEEC29C00036D48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

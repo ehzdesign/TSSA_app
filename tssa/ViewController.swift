@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ViewController: UIViewController, UIScrollViewDelegate {
+class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSource, AKPickerViewDelegate {
     
     let homeSetupData = NSUserDefaults.standardUserDefaults()
     
@@ -50,6 +50,16 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     var wizardQuestionViewArray:[QuestionView] = [];
     
     var pageControlCounter = 1
+    
+    //variable for scroll selector for items using AKPickerVIew
+    let pickerView = AKPickerView()
+    
+    //icons for picker view
+    let itemIconsArray = ["stove_", "smoke_icon", "fire_place", "co_icon", "furnace_icon"]
+    
+    //text label for current item in picker view
+    let currentPickerItemLabel = UILabel()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +136,17 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         self.pageControl.addTarget(self, action: #selector(ViewController.changePage(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
         
+        //add delegates for item selector using AKPickerView
+        self.pickerView.delegate = self
+        self.pickerView.dataSource = self
+        
+        self.pickerView.font = UIFont(name: "HelveticaNeue-Light", size: 20)!
+        self.pickerView.highlightedFont = UIFont(name: "HelveticaNeue", size: 20)!
+        self.pickerView.pickerViewStyle = .Wheel
+        self.pickerView.maskDisabled = false
+        self.pickerView.reloadData()
+        
+        
         
         
         // create a loop to initialize all views onto the view controller
@@ -163,6 +184,37 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 element.addSubview(element.wizardImage)
                 
             }
+            
+            
+            if(index == 6){
+                //setup scroll indicator to add items to floor
+                
+                element.addSubview(pickerView)
+                pickerView.frame = CGRectMake(0, 200, screenWidth, 100)
+                
+                //add text label for current item in picker view to wizard screen
+//                currentPickerItemLabel.translatesAutoresizingMaskIntoConstraints = false
+                element.addSubview(currentPickerItemLabel)
+                currentPickerItemLabel.frame = CGRectMake(0, 300, screenWidth, 30)
+                currentPickerItemLabel.textAlignment = .Center
+
+                
+                
+                
+//                let topConstraint = NSLayoutConstraint(
+//                    item: currentPickerItemLabel,
+//                    attribute: NSLayoutAttribute.TopMargin,
+//                    relatedBy: NSLayoutRelation.Equal,
+//                    toItem: self.pickerView,
+//                    attribute: NSLayoutAttribute.BottomMargin,
+//                    multiplier: 1,
+//                    constant: 31)
+//                
+//                NSLayoutConstraint.activateConstraints([topConstraint])
+
+                
+            }
+            
             
             
             
@@ -267,7 +319,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         for (_, element) in wizardQuestionViewArray.enumerate(){
             
             if (pageControl.currentPage == wizardQuestionViewArray.indexOf(element)){
-                print("yellow")
+                
                 print(element.questionLabel.text)
                 element.questionLabel.animation = "pop"
                 element.questionLabel.duration = 1
@@ -428,6 +480,33 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(1), target: self, selector: #selector(ViewController.changePage as (ViewController) -> () -> ()), userInfo: nil, repeats: false)
         
     }
+    
+    // MARK: - AKPickerViewDataSource
+    
+    func numberOfItemsInPickerView(pickerView: AKPickerView) -> Int {
+        return self.itemIconsArray.count
+    }
+    
+//    func pickerView(pickerView: AKPickerView, titleForItem item: Int) -> String {
+//        return self.newNames[item]
+//    }
+    
+    func pickerView(pickerView: AKPickerView, imageForItem item: Int) -> UIImage {
+        return UIImage(named: self.itemIconsArray[item])!
+    }
+    
+    // MARK: - AKPickerViewDelegate
+    
+    func pickerView(pickerView: AKPickerView, didSelectItem item: Int) {
+        print("current icon \(self.itemIconsArray[item])")
+        currentPickerItemLabel.text = itemIconsArray[item]
+        
+        
+        
+    }
+    
+    
+
     
     
     
