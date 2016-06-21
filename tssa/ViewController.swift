@@ -13,6 +13,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     
     let homeSetupData = NSUserDefaults.standardUserDefaults()
     
+    //to store home sections for home setup data
+    var homeSectionsArray:[String] = ["first floor"]
+    
+
     //screen size
     let screenSize: CGRect = UIScreen.mainScreen().bounds
     
@@ -67,6 +71,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        //test print sections of home
+        print("76: these are the sections of the \(homeSetupData.objectForKey("HomeSections"))")
+        
         //get screen dimensions
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
@@ -78,7 +86,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         //add pageControl to view
         self.view.addSubview(pageControl)
         
-        print("does home have basement = \(homeSetupData.boolForKey("hasBasement"))")
+//        print("does home have basement = \(homeSetupData.boolForKey("hasBasement"))")
         
         
         print("*****\(wizardScrollView.frame)")
@@ -447,10 +455,24 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
             print("has basement == true")
             //set that user has basement  = true
             homeSetupData.setBool(true, forKey: "hasBasement")
+            //add basement to homeSectionsArray if does not exist
+            if !self.homeSectionsArray.contains("basement"){
+                homeSectionsArray.append("basement")
+                homeSetupData.setObject(homeSectionsArray, forKey: "HomeSections")
+            }
+            print("463: this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
+
         }else if (pageControl.currentPage == 3 /*has garage question*/){
             print("has garage == true")
             //set that user has garage  = true
             homeSetupData.setBool(true, forKey: "hasGarage")
+            //add basement to homeSectionsArray if does not exist
+            if !self.homeSectionsArray.contains("garage"){
+                homeSectionsArray.append("garage")
+                homeSetupData.setObject(homeSectionsArray, forKey: "HomeSections")
+            }
+            print("473: this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
+
         }
         
         //animate button when clicked
@@ -464,19 +486,37 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         
     }
     
-    //    this is the buton when the no button is clicked
+    //    this is the function when the no button is clicked
     
     func noButtonPressed(sender: SpringButton){
+        //check if garage exists in homeSectionsArray
         print("no button pressed")
         if (pageControl.currentPage == 2 /*has basement question*/){
             //set that user has basement  = false
             print("has basement == false")
             homeSetupData.setBool(false, forKey: "hasBasement")
+            //remove basement if exists from array of home sections and from homeSetupData
+            if self.homeSectionsArray.contains("basement"){
+                homeSectionsArray = homeSectionsArray.filter{$0 != "basement"}
+                homeSetupData.setObject(homeSectionsArray, forKey: "HomeSections")
+            }
+            print("496 : this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
+
+            
             
         }else if (pageControl.currentPage == 3 /*has garage question*/){
             print("has garage == false")
             //set that user has garage  = false
             homeSetupData.setBool(false, forKey: "hasGarage")
+         
+            //remove garage if exists from array of home sections and from homeSetupData
+            if self.homeSectionsArray.contains("garage"){
+                homeSectionsArray = homeSectionsArray.filter{$0 != "garage"}
+                homeSetupData.setObject(homeSectionsArray, forKey: "HomeSections")
+            }
+         
+            print("518 : this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
+            
         }
         
         //aanimate button when clicked
