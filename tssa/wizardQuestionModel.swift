@@ -19,7 +19,7 @@ struct wizardQuestionModel {
         ["Do you have a garage?"],
         ["How many stories does your home have?","(not including basement)"],
         ["Every floor should be equipped with at least 1 CO and 1 smoke detector", "Did you know?", "dont worry we set all that up for you already!"],
-        ["Add items to your floor"],
+        ["Add items to your home"],
         ["Congratulations you are all set up!"]
         
     ]

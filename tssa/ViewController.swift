@@ -80,9 +80,16 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     //store default how many stories in home
     var numberOfStories:String = "1"
     
+    
+    let downStepperBtn = SpringButton()
+    let upStepperBtn = SpringButton()
+    
+    var floorChoiceLabel = UILabel()
+    
+    
    
-    
-    
+    var floorCounter = 0
+ 
     
    
     
@@ -91,6 +98,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        print("home data: \(homeSetupData.dictionaryRepresentation())")
        
         //test print sections of home
         print("76: these are the sections of the \(homeSetupData.objectForKey("HomeSections"))")
@@ -254,19 +262,121 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
             
             
             if(index == 6){
-                //setup scroll indicator to add items to floor
                 
+                
+                //setup scroll indicator to add items to floor
                 element.addSubview(pickerView)
-                pickerView.frame = CGRectMake(0, 200, screenWidth, 100)
+                pickerView.frame = CGRectMake(0, 200, wizardQuestionViewWidth, 100)
                 
                 //add text label for current item in picker view to wizard screen
-//                currentPickerItemLabel.translatesAutoresizingMaskIntoConstraints = false
+                //                currentPickerItemLabel.translatesAutoresizingMaskIntoConstraints = false
                 element.addSubview(currentPickerItemLabel)
-                currentPickerItemLabel.frame = CGRectMake(0, 300, screenWidth, 30)
+                currentPickerItemLabel.frame = CGRectMake(0, 300, wizardQuestionViewWidth, 30)
                 currentPickerItemLabel.textAlignment = .Center
                 
                 //initialize label with name of first icon on load
                 currentPickerItemLabel.text = itemIconsArray[0]
+                //create buttons for selecting current floor to add items to
+              
+                
+                let stepperBtnArray = [downStepperBtn, upStepperBtn]
+                
+                //add function for click event on both stepper buttons
+                for stepperBtn in stepperBtnArray {
+                    stepperBtn.addTarget(self, action: #selector(ViewController.stepperBtnClicked(_:)), forControlEvents: .TouchUpInside)
+//                    stepperBtn.backgroundColor = UIColor.blackColor()
+                    stepperBtn.setTitleColor(UIColor.redColor(), forState: .Normal)
+                    stepperBtn.translatesAutoresizingMaskIntoConstraints = false
+                    element.addSubview(stepperBtn)
+                    
+                }
+                
+//                downStepperBtn.setTitle("<", forState: .Normal)
+//                upStepperBtn.setTitle(">", forState: .Normal)
+                
+                if let prevArrowImage = UIImage(named: "prev_arrow_icon") {
+                    downStepperBtn.setImage(prevArrowImage, forState: .Normal)
+
+                }
+                
+                if let nextArrowImage = UIImage(named: "next_arrow_icon") {
+                    upStepperBtn.setImage(nextArrowImage, forState: .Normal)
+                }
+                
+                
+                
+                
+                //create label for floors
+//                var floorChoiceLabel = UILabel()
+//                floorChoiceLabel.frame = CGRectMake(wizardQuestionViewWidth/2 - 50, 150, 100, 50)
+                floorChoiceLabel.textAlignment = .Center
+                floorChoiceLabel.text = homeSectionsArray[0]
+                
+                floorChoiceLabel.translatesAutoresizingMaskIntoConstraints = false
+                
+                //add to question view
+                element.addSubview(floorChoiceLabel)
+                
+                //VFL layout for floor selector
+                let floorChoiceViews = ["floorDown": downStepperBtn, "floorLabel": floorChoiceLabel, "floorUp": upStepperBtn, "pickerView" : pickerView]
+                
+                
+                var allFloorChoiceConstraints = [NSLayoutConstraint]()
+                
+                
+//                setup horizontal constraint for < floor > selector
+                
+                let floorChoiceRowHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                    "H:|-90-[floorDown(30)]-[floorLabel(>=100)]-[floorUp(30)]",
+                    options: [.AlignAllCenterY],
+                    metrics: nil,
+                    views: floorChoiceViews)
+                allFloorChoiceConstraints += floorChoiceRowHorizontalConstraints
+                
+                //vertical constraint for floorDown button
+                
+                let floorDownVerticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(
+                    "V:[floorDown(30)]-10-[pickerView]",
+                     options: [],
+                     metrics: nil,
+                     views: floorChoiceViews)
+                allFloorChoiceConstraints += floorDownVerticalConstraint
+                
+                //vertical constraint for floorLabel button
+                
+                let floorLabelVerticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(
+                    "V:[floorLabel(50)]-10-[pickerView]",
+                    options: [],
+                    metrics: nil,
+                    views: floorChoiceViews)
+                allFloorChoiceConstraints += floorLabelVerticalConstraint
+                
+                //vertical constraint for floorLabel button
+                
+                let floorUpVerticalConstraint = NSLayoutConstraint.constraintsWithVisualFormat(
+                    "V:[floorUp(30)]-10-[pickerView]",
+                    options: [],
+                    metrics: nil,
+                    views: floorChoiceViews)
+                allFloorChoiceConstraints += floorUpVerticalConstraint
+                
+                
+                NSLayoutConstraint.activateConstraints(allFloorChoiceConstraints)
+                
+                
+                
+//                //setup scroll indicator to add items to floor
+//                element.addSubview(pickerView)
+//                pickerView.frame = CGRectMake(0, 200, wizardQuestionViewWidth, 100)
+//                
+//                //add text label for current item in picker view to wizard screen
+////                currentPickerItemLabel.translatesAutoresizingMaskIntoConstraints = false
+//                element.addSubview(currentPickerItemLabel)
+//                currentPickerItemLabel.frame = CGRectMake(0, 300, wizardQuestionViewWidth, 30)
+//                currentPickerItemLabel.textAlignment = .Center
+//                
+//                //initialize label with name of first icon on load
+//                currentPickerItemLabel.text = itemIconsArray[0]
                 
                 
                 
@@ -643,6 +753,28 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     }
     
     
+    //function for stepper button clicked for selecting floor where items are added
+    func stepperBtnClicked(sender: UIButton){
+        
+        if(sender == downStepperBtn ) {
+        //move down through home sections Array
+        floorCounter-=1
+            if(floorCounter < 0){
+                floorCounter = homeSectionsArray.count - 1
+            }
+        floorChoiceLabel.text = homeSectionsArray[floorCounter]
+        }
+        else if(sender == upStepperBtn) {
+        //move up through home sections Array
+        floorCounter+=1
+            if(floorCounter > homeSectionsArray.count - 1){
+                floorCounter = 0
+            }
+        floorChoiceLabel.text = homeSectionsArray[floorCounter]
+        }
+    }
+    
+   
     
     
     
