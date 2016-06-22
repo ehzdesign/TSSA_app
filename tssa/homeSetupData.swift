@@ -18,3 +18,6 @@
 //    to get garage value -> Bool
 //    homeSetupData.boolForKey("hasGarage")
 
+
+//   to get stories of home -> INT
+//   homeSetupData.valueForKey("homeStories")

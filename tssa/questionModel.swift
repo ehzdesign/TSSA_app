@@ -77,6 +77,7 @@ class QuestionView: UIView {
         
         let fontSize = self.questionLabel.font.pointSize;
         self.questionLabel.font = UIFont(name: "Futura-Medium", size: 20)
+       
         
         
         //set size of top label and placement
@@ -91,14 +92,14 @@ class QuestionView: UIView {
         //as well as text attributes
         self.additionalInfoBottomLabel.numberOfLines = 3
         self.additionalInfoBottomLabel.textAlignment = .Center
-        self.additionalInfoBottomLabel.font = UIFont(name: "Futura", size: fontSize - 3)
+        self.additionalInfoBottomLabel.font = UIFont(name: "Futura", size: fontSize - 2)
         
-        self.additionalInfoBottomLabel.frame = CGRectMake(15, 10, self.frame.width - 30, 60)
+        self.additionalInfoBottomLabel.frame = CGRectMake(15, 150, self.frame.width - 30, 60)
         
         
         //create wizard question image
         let image: UIImage = UIImage(named: "wizard6_Img")!
-        wizardImage.frame = CGRectMake(self.frame.width/2 - 60, self.frame.height - 130, 120, 120)
+        wizardImage.frame = CGRectMake(self.frame.width/2 - 100, self.frame.height - 240, 200, 200)
         wizardImage.contentMode = .ScaleAspectFit
         wizardImage.image = image
        

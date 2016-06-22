@@ -35,8 +35,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     //var pageControl: UIPageControl! = UIPageControl()
     var pageControl : UIPageControl = UIPageControl()
     
-   
-    
+   //currently selected item to be added to floor
+    var justSelected = ""
     
     
     //create variable to access the wizard questions
@@ -58,11 +58,31 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     //variable for scroll selector for items using AKPickerVIew
     let pickerView = AKPickerView()
     
+    //variable for scroll selector for stories using AKPickerVIew
+    let storiesPickerView = AKPickerView()
+    
     //icons for picker view
     let itemIconsArray = ["stove_", "smoke_icon", "fire_place", "co_icon", "furnace_icon"]
     
+    //data for picker view
+    let storiesDataArray = ["1", "2", "3"]
+
+    
     //text label for current item in picker view
     let currentPickerItemLabel = UILabel()
+    
+    
+    //buttons for selected stories
+    var stories1 = SpringButton()
+    var stories2 = SpringButton()
+    var stories3 = SpringButton()
+    
+    //store default how many stories in home
+    var numberOfStories:String = "1"
+    
+   
+    
+    
     
    
     
@@ -70,8 +90,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    
+       
         //test print sections of home
         print("76: these are the sections of the \(homeSetupData.objectForKey("HomeSections"))")
         
@@ -89,13 +109,14 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
 //        print("does home have basement = \(homeSetupData.boolForKey("hasBasement"))")
         
         
-        print("*****\(wizardScrollView.frame)")
+//        print("*****\(wizardScrollView.frame)")
         
         //styie for continue button
         wizardContinueButton.backgroundColor = UIColor.clearColor()
-        wizardContinueButton.layer.cornerRadius = 25
+        wizardContinueButton.layer.cornerRadius = 22
         wizardContinueButton.layer.borderWidth = 1.5
         wizardContinueButton.layer.borderColor = UIColor.whiteColor().CGColor
+        wizardContinueButton.titleLabel!.font =  UIFont(name: "Futura-Medium", size: 18)
         
         
         
@@ -130,7 +151,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         
         //store width of wizard question view based on scroll view width
         let wizardQuestionViewWidth = self.wizardScrollView.frame.width - wizardScrollView.frame.width * 10/100
-        
         
         
         
@@ -190,6 +210,41 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
                 
                 
             }
+            
+            if(index == 4){
+                
+                
+                
+                let storieBtnArray = [stories1, stories2, stories3]
+                
+               stories1.layer.borderColor = UIColor.redColor().CGColor
+               stories1.layer.borderWidth = 1
+                
+                
+                for btn in storieBtnArray {
+                    
+                    
+                    element.addSubview(btn)
+                    btn.setTitleColor(UIColor.grayColor(), forState: .Normal)
+                    btn.backgroundColor = UIColor.clearColor()
+                    btn.layer.cornerRadius = 25
+                    
+                    
+                    btn.addTarget(self, action: #selector(ViewController.storieBtnClicked(_:)), forControlEvents: .TouchUpInside)
+
+                }
+                
+                self.stories1.frame = CGRectMake(wizardQuestionViewWidth/2 - 100, 260, 51, 51)
+                self.stories1.setTitle("1", forState: .Normal)
+                self.stories2.frame = CGRectMake(wizardQuestionViewWidth/2 - 25, 260, 51, 51)
+                self.stories2.setTitle("2", forState: .Normal)
+                self.stories3.frame = CGRectMake(wizardQuestionViewWidth/2 + 50, 260, 51, 51)
+                self.stories3.setTitle("3", forState: .Normal)
+                
+                
+                
+            }
+
             
             if(index == 5){
                 
@@ -530,8 +585,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     }
     
     // MARK: - AKPickerViewDataSource
-    
+   
+   
     func numberOfItemsInPickerView(pickerView: AKPickerView) -> Int {
+        
         return self.itemIconsArray.count
     }
     
@@ -548,13 +605,42 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     func pickerView(pickerView: AKPickerView, didSelectItem item: Int) {
         print("current icon \(self.itemIconsArray[item])")
         currentPickerItemLabel.text = itemIconsArray[item]
-        
+        addItemToFloor( itemIconsArray[item])
         
         
     }
     
+    func addItemToFloor(itemToAdd:String){
+        justSelected = itemToAdd
+        print("573: \(justSelected)")
+    }
     
-
+    
+    // MARK: select how many stories home has button clicked function
+    func storieBtnClicked(sender: UIButton) {
+        sender.layer.borderColor = UIColor.redColor().CGColor
+        sender.layer.borderWidth = 1
+        if(sender === stories1){
+            numberOfStories = "1"
+            homeSetupData.setValue(numberOfStories, forKey: "homeStories")
+            stories2.layer.borderColor = UIColor.clearColor().CGColor
+            stories3.layer.borderColor = UIColor.clearColor().CGColor
+            
+        }
+        if(sender === stories2){
+            numberOfStories = "2"
+            homeSetupData.setValue(numberOfStories, forKey: "homeStories")
+            stories1.layer.borderColor = UIColor.clearColor().CGColor
+            stories3.layer.borderColor = UIColor.clearColor().CGColor
+        }
+        if(sender === stories3){
+           numberOfStories = "3"
+            homeSetupData.setValue(numberOfStories, forKey: "homeStories")
+            stories1.layer.borderColor = UIColor.clearColor().CGColor
+            stories2.layer.borderColor = UIColor.clearColor().CGColor
+        }
+    
+    }
     
     
     
