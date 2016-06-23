@@ -86,6 +86,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     
     var floorChoiceLabel = UILabel()
     
+    var addItemToFloorBtn = SpringButton()
+    
     
    
     var floorCounter = 0
@@ -101,7 +103,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         print("home data: \(homeSetupData.dictionaryRepresentation())")
        
         //test print sections of home
-        print("76: these are the sections of the \(homeSetupData.objectForKey("HomeSections"))")
+//        print("104: these are the sections of the \(homeSetupData.objectForKey("HomeSections"))")
         
         //get screen dimensions
         let screenWidth = screenSize.width
@@ -191,7 +193,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         
         // create a loop to initialize all views onto the view controller
         for (index, element) in wizardQuestionArray.enumerate() {
-            print("Item \(index): \(element)")
+//            print("Item \(index): \(element)")
             
             //create each view for question in wizardQuestionScreenArray
             let element = QuestionView(frame: CGRectMake(wizardScrollViewWidth*CGFloat(index) + wizardScrollView.frame.width * 5/100, 80, wizardQuestionViewWidth,wizardQuestionViewHeight))
@@ -317,8 +319,19 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
                 //add to question view
                 element.addSubview(floorChoiceLabel)
                 
+                //add item to floor button to superview
+                addItemToFloorBtn.backgroundColor = UIColor.redColor()
+                addItemToFloorBtn.layer.cornerRadius = 30
+                
+                element.addSubview(addItemToFloorBtn)
+                
+                addItemToFloorBtn.frame = CGRectMake(wizardQuestionViewWidth/2 - 30, 400, 60, 60)
+                
+                 addItemToFloorBtn.addTarget(self, action: #selector(ViewController.addItemToFloorAnimate(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                
+               
                 //VFL layout for floor selector
-                let floorChoiceViews = ["floorDown": downStepperBtn, "floorLabel": floorChoiceLabel, "floorUp": upStepperBtn, "pickerView" : pickerView]
+                let floorChoiceViews = ["floorDown": downStepperBtn, "floorLabel": floorChoiceLabel, "floorUp": upStepperBtn, "pickerView" : pickerView, "addItemBtn": addItemToFloorBtn, "sv": view ]
                 
                 
                 var allFloorChoiceConstraints = [NSLayoutConstraint]()
@@ -328,6 +341,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
                 
                 let floorChoiceRowHorizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
                     "H:|-90-[floorDown(30)]-[floorLabel(>=100)]-[floorUp(30)]",
+    
                     options: [.AlignAllCenterY],
                     metrics: nil,
                     views: floorChoiceViews)
@@ -359,6 +373,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
                     metrics: nil,
                     views: floorChoiceViews)
                 allFloorChoiceConstraints += floorUpVerticalConstraint
+                
+                
                 
                 
                 NSLayoutConstraint.activateConstraints(allFloorChoiceConstraints)
@@ -501,7 +517,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
             
             if (pageControl.currentPage == wizardQuestionViewArray.indexOf(element)){
                 
-                print(element.questionLabel.text)
+//                print(element.questionLabel.text)
                 element.questionLabel.animation = "pop"
                 element.questionLabel.duration = 1
                 element.questionLabel.animate()
@@ -623,9 +639,9 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
             //add basement to homeSectionsArray if does not exist
             if !self.homeSectionsArray.contains("basement"){
                 homeSectionsArray.append("basement")
-                homeSetupData.setObject(homeSectionsArray, forKey: "HomeSections")
+                homeSetupData.setObject(homeSectionsArray, forKey: "homeSections")
             }
-            print("463: this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
+//            print("463: this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
 
         }else if (pageControl.currentPage == 3 /*has garage question*/){
             print("has garage == true")
@@ -634,9 +650,9 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
             //add basement to homeSectionsArray if does not exist
             if !self.homeSectionsArray.contains("garage"){
                 homeSectionsArray.append("garage")
-                homeSetupData.setObject(homeSectionsArray, forKey: "HomeSections")
+                homeSetupData.setObject(homeSectionsArray, forKey: "homeSections")
             }
-            print("473: this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
+//            print("473: this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
 
         }
         
@@ -655,32 +671,32 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     
     func noButtonPressed(sender: SpringButton){
         //check if garage exists in homeSectionsArray
-        print("no button pressed")
+//        print("no button pressed")
         if (pageControl.currentPage == 2 /*has basement question*/){
             //set that user has basement  = false
-            print("has basement == false")
+//            print("has basement == false")
             homeSetupData.setBool(false, forKey: "hasBasement")
             //remove basement if exists from array of home sections and from homeSetupData
             if self.homeSectionsArray.contains("basement"){
                 homeSectionsArray = homeSectionsArray.filter{$0 != "basement"}
-                homeSetupData.setObject(homeSectionsArray, forKey: "HomeSections")
+                homeSetupData.setObject(homeSectionsArray, forKey: "homeSections")
             }
-            print("496 : this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
+//            print("496 : this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
 
             
             
         }else if (pageControl.currentPage == 3 /*has garage question*/){
-            print("has garage == false")
+//            print("has garage == false")
             //set that user has garage  = false
             homeSetupData.setBool(false, forKey: "hasGarage")
          
             //remove garage if exists from array of home sections and from homeSetupData
             if self.homeSectionsArray.contains("garage"){
                 homeSectionsArray = homeSectionsArray.filter{$0 != "garage"}
-                homeSetupData.setObject(homeSectionsArray, forKey: "HomeSections")
+                homeSetupData.setObject(homeSectionsArray, forKey: "homeSections")
             }
          
-            print("518 : this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
+//            print("518 : this is the sections of the home\(homeSetupData.objectForKey("HomeSections"))")
             
         }
         
@@ -714,6 +730,9 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     
     func pickerView(pickerView: AKPickerView, didSelectItem item: Int) {
         print("current icon \(self.itemIconsArray[item])")
+//        print("current icon \(AKPickerView.collectionView?.cell)")
+       
+
         currentPickerItemLabel.text = itemIconsArray[item]
         addItemToFloor( itemIconsArray[item])
         
@@ -722,7 +741,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     
     func addItemToFloor(itemToAdd:String){
         justSelected = itemToAdd
-        print("573: \(justSelected)")
+//        print("573: \(justSelected)")
     }
     
     
@@ -732,20 +751,35 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         sender.layer.borderWidth = 1
         if(sender === stories1){
             numberOfStories = "1"
-            homeSetupData.setValue(numberOfStories, forKey: "homeStories")
+            
+            homeSectionsArray = homeSectionsArray.filter(){$0 != "second floor"}
+            homeSectionsArray = homeSectionsArray.filter(){$0 != "third floor"}
+            homeSetupData.setObject(homeSectionsArray, forKey: "homeSections")
             stories2.layer.borderColor = UIColor.clearColor().CGColor
             stories3.layer.borderColor = UIColor.clearColor().CGColor
             
         }
         if(sender === stories2){
             numberOfStories = "2"
-            homeSetupData.setValue(numberOfStories, forKey: "homeStories")
+//           check if second and third floor exists
+            homeSectionsArray = homeSectionsArray.filter(){$0 != "second floor"}
+            homeSectionsArray = homeSectionsArray.filter(){$0 != "third floor"}
+            
+//            add second floor to home sections array
+            homeSectionsArray.append("second floor")
+             homeSetupData.setObject(homeSectionsArray, forKey: "homeSections")
             stories1.layer.borderColor = UIColor.clearColor().CGColor
             stories3.layer.borderColor = UIColor.clearColor().CGColor
         }
         if(sender === stories3){
            numberOfStories = "3"
-            homeSetupData.setValue(numberOfStories, forKey: "homeStories")
+            
+            homeSectionsArray = homeSectionsArray.filter(){$0 != "second floor"}
+            homeSectionsArray = homeSectionsArray.filter(){$0 != "third floor"}
+            
+            homeSectionsArray.append("second floor")
+            homeSectionsArray.append("third floor")
+             homeSetupData.setObject(homeSectionsArray, forKey: "homeSections")
             stories1.layer.borderColor = UIColor.clearColor().CGColor
             stories2.layer.borderColor = UIColor.clearColor().CGColor
         }
@@ -756,23 +790,36 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     //function for stepper button clicked for selecting floor where items are added
     func stepperBtnClicked(sender: UIButton){
         
+        var homeSections = homeSetupData.arrayForKey("homeSections")
+        
         if(sender == downStepperBtn ) {
         //move down through home sections Array
         floorCounter-=1
             if(floorCounter < 0){
-                floorCounter = homeSectionsArray.count - 1
+//                floorCounter = homeSectionsArray.count - 1
+                 floorCounter = homeSetupData.valueForKey("homeSections")!.count - 1
             }
-        floorChoiceLabel.text = homeSectionsArray[floorCounter]
+        floorChoiceLabel.text = homeSections![floorCounter] as! String
         }
         else if(sender == upStepperBtn) {
         //move up through home sections Array
         floorCounter+=1
-            if(floorCounter > homeSectionsArray.count - 1){
+            if(floorCounter > homeSetupData.valueForKey("homeSections")!.count - 1){
                 floorCounter = 0
             }
-        floorChoiceLabel.text = homeSectionsArray[floorCounter]
+        floorChoiceLabel.text = homeSections![floorCounter] as! String
         }
     }
+    
+    
+    
+    //add item to floor animation
+    
+    func addItemToFloorAnimate(sender: AnyObject){
+      addItemToFloorBtn.transform = CGAffineTransformMakeScale(5.0, 1.0)
+        addItemToFloorBtn.layer.cornerRadius = 3
+    }
+
     
    
     
