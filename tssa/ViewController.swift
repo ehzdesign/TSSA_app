@@ -36,7 +36,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     var pageControl : UIPageControl = UIPageControl()
     
    //currently selected item to be added to floor
-    var justSelected = ""
+    var justSelected = "stove"
     
     
     //create variable to access the wizard questions
@@ -93,7 +93,6 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     var floorCounter = 0
  
     
-   
     
     
     
@@ -320,14 +319,50 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
                 element.addSubview(floorChoiceLabel)
                 
                 //add item to floor button to superview
-                addItemToFloorBtn.backgroundColor = UIColor.redColor()
-                addItemToFloorBtn.layer.cornerRadius = 30
+                addItemToFloorBtn.backgroundColor = UIColor(hue: 0.1083, saturation: 0, brightness: 0.96, alpha: 1.0) /* #f4f4f4 */
+
+                addItemToFloorBtn.layer.cornerRadius = 25
                 
                 element.addSubview(addItemToFloorBtn)
                 
-                addItemToFloorBtn.frame = CGRectMake(wizardQuestionViewWidth/2 - 30, 400, 60, 60)
+                addItemToFloorBtn.frame = CGRectMake(30, 380, wizardQuestionViewWidth - 60, 50)
+                
+                addItemToFloorBtn.setTitle("click to add to floor", forState: .Normal)
+                addItemToFloorBtn.setTitleColor(UIColor.grayColor(), forState: .Normal)
+                
                 
                  addItemToFloorBtn.addTarget(self, action: #selector(ViewController.addItemToFloorAnimate(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                
+               
+                
+                
+                //TODO: add mask for expanding button almost works 😆
+//                //add mask for notification
+//                var underView = UIView()
+//                underView = UIView(frame: CGRectMake(20, 360, wizardQuestionViewWidth - 40, 70))
+//                underView.backgroundColor = UIColor.clearColor()
+//                underView.layer.cornerRadius = 30
+//                
+//                let maskImage: UIImage = UIImage(named: "circleIcon")!
+//                let mask = CALayer()
+//                mask.contents = maskImage.CGImage
+//                mask.contentsGravity = kCAGravityResizeAspectFill
+////                mask.frame = CGRectMake(wizardQuestionViewWidth/2 - 50, 10, 100, 100)
+//                
+//                
+//                
+//                underView.layer.mask = mask
+//                underView.layer.addSublayer(mask)
+//                
+//                underView.clipsToBounds = true
+//                
+//             
+////
+//                element.addSubview(underView)
+                
+                
+                
+                
                 
                
                 //VFL layout for floor selector
@@ -731,16 +766,21 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     func pickerView(pickerView: AKPickerView, didSelectItem item: Int) {
         print("current icon \(self.itemIconsArray[item])")
 //        print("current icon \(AKPickerView.collectionView?.cell)")
-       
+    
 
         currentPickerItemLabel.text = itemIconsArray[item]
         addItemToFloor( itemIconsArray[item])
+        justSelected = itemIconsArray[item]
         
         
     }
     
+    
+    
+   
+    
     func addItemToFloor(itemToAdd:String){
-        justSelected = itemToAdd
+//        justSelected = itemToAdd
 //        print("573: \(justSelected)")
     }
     
@@ -816,9 +856,40 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     //add item to floor animation
     
     func addItemToFloorAnimate(sender: AnyObject){
-      addItemToFloorBtn.transform = CGAffineTransformMakeScale(5.0, 1.0)
-        addItemToFloorBtn.layer.cornerRadius = 3
+        
+        addItemToFloorBtn.animation = "pop"
+        addItemToFloorBtn.duration = 1
+        addItemToFloorBtn.animate()
+        
+        
+        //if clicked display current icon title and turn button green
+     
+
+        self.addItemToFloorBtn.setTitle("\(self.justSelected) added", forState: .Normal)
+        self.addItemToFloorBtn.backgroundColor = UIColor(hue: 0.3389, saturation: 0.46, brightness: 1, alpha: 1.0) /* #89ff8d */
+        self.addItemToFloorBtn.setTitleColor(UIColor.grayColor(), forState: .Normal)
+
+        
+        delay(1){
+        
+            self.addItemToFloorBtn.setTitle("add item to floor", forState: .Normal)
+            self.addItemToFloorBtn.backgroundColor = UIColor(hue: 0.1083, saturation: 0, brightness: 0.96, alpha: 1.0) /* #f4f4f4 */
+            
+   
+        }
+        
     }
+    
+    
+
+    func delay(delay:Double, closure:()->()) {
+        
+        dispatch_after(
+            dispatch_time( DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), closure)
+        
+        
+    }
+    
 
     
    
