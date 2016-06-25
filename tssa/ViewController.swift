@@ -874,6 +874,9 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         
             self.addItemToFloorBtn.setTitle("add item to floor", forState: .Normal)
             self.addItemToFloorBtn.backgroundColor = UIColor(hue: 0.1083, saturation: 0, brightness: 0.96, alpha: 1.0) /* #f4f4f4 */
+            self.addItemToFloorBtn.animation = "pop"
+            self.addItemToFloorBtn.duration = 1
+            self.addItemToFloorBtn.animate()
             
    
         }
