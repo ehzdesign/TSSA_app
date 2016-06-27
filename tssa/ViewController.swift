@@ -89,16 +89,37 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
     var addItemToFloorBtn = SpringButton()
     
     
-   
+   //counter for setting selector label for floor choice
     var floorCounter = 0
+    
+    
+    //temporary holder for current floor
+    var currentFloorChoice = "first floor"
+    
+    
+    
+    var firstFloorTasksArray:[[String:String]] = []
+    var secondFloorTasksArray:[[String:String]] = []
+    var thirdFloorTasksArray:[[String:String]] = []
+    var basementTasksArray:[[String:String]] = []
+    var garageTasksArray:[[String:String]] = []
  
+
     
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
+        //comment out when ready to save tasks
+        homeSetupData.removeObjectForKey("firstFloorTasks")
+        homeSetupData.removeObjectForKey("secondFloorTasks")
+        homeSetupData.removeObjectForKey("thirdFloorTasks")
+        homeSetupData.removeObjectForKey("basementTasks")
+        homeSetupData.removeObjectForKey("garageTasks")
+        
+        
         print("home data: \(homeSetupData.dictionaryRepresentation())")
        
         //test print sections of home
@@ -839,7 +860,9 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
 //                floorCounter = homeSectionsArray.count - 1
                  floorCounter = homeSetupData.valueForKey("homeSections")!.count - 1
             }
-        floorChoiceLabel.text = homeSections![floorCounter] as! String
+        floorChoiceLabel.text = homeSections![floorCounter] as? String
+        currentFloorChoice = homeSections![floorCounter] as! String
+        
         }
         else if(sender == upStepperBtn) {
         //move up through home sections Array
@@ -848,6 +871,8 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
                 floorCounter = 0
             }
         floorChoiceLabel.text = homeSections![floorCounter] as! String
+        currentFloorChoice = homeSections![floorCounter] as! String
+
         }
     }
     
@@ -868,6 +893,9 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         self.addItemToFloorBtn.setTitle("\(self.justSelected) added", forState: .Normal)
         self.addItemToFloorBtn.backgroundColor = UIColor(hue: 0.3389, saturation: 0.46, brightness: 1, alpha: 1.0) /* #89ff8d */
         self.addItemToFloorBtn.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        
+        //call add item to floor data
+        addItemToFloorData()
 
         
         delay(1){
@@ -892,6 +920,52 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         
         
     }
+    
+    
+    //add items to floor data
+    
+    func addItemToFloorData(){
+   
+        print("\(justSelected) has been added to \(currentFloorChoice) 😎")
+        
+        //add current item to floor with item:"name" task: "undefined" date: "undefined" to home setup data
+        var temporaryTask:[String:String] = [:]
+        //get current item name
+        temporaryTask["item"] = justSelected
+        temporaryTask["description"] = "undefined"
+        temporaryTask["date"] = "undefined"
+        
+        
+        switch currentFloorChoice {
+        case "first floor":
+            self.firstFloorTasksArray.append(temporaryTask)
+            print(firstFloorTasksArray)
+            homeSetupData.setObject(firstFloorTasksArray, forKey: "firstFloorTasks")
+        case "second floor":
+            self.secondFloorTasksArray.append(temporaryTask)
+            print(secondFloorTasksArray)
+            homeSetupData.setObject(secondFloorTasksArray, forKey: "secondFloorTasks")
+        case "third floor":
+            self.thirdFloorTasksArray.append(temporaryTask)
+            print(thirdFloorTasksArray)
+            homeSetupData.setObject(thirdFloorTasksArray, forKey: "thirdFloorTasks")
+        case "basement":
+            self.basementTasksArray.append(temporaryTask)
+            print(basementTasksArray)
+            homeSetupData.setObject(basementTasksArray, forKey: "basementFloorTasks")
+        case "garage ":
+            self.garageTasksArray.append(temporaryTask)
+            print(garageTasksArray)
+            homeSetupData.setObject(garageTasksArray, forKey: "garageFloorTasks")
+
+        default:
+            print("error adding item to floor. floor out of range")
+        }
+        
+    
+    
+    }
+    
     
 
     
