@@ -929,6 +929,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
         print("\(justSelected) has been added to \(currentFloorChoice) 😎")
         
         //add current item to floor with item:"name" task: "undefined" date: "undefined" to home setup data
+        
         var temporaryTask:[String:String] = [:]
         //get current item name
         temporaryTask["item"] = justSelected
