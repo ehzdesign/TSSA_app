@@ -778,9 +778,9 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
 //        return self.newNames[item]
 //    }
     
-    func pickerView(pickerView: AKPickerView, imageForItem item: Int) -> UIImage {
-        return UIImage(named: self.itemIconsArray[item])!
-    }
+//    func pickerView(pickerView: AKPickerView, imageForItem item: Int) -> UIImage {
+//        return UIImage(named: self.itemIconsArray[item])!
+//    }
     
     // MARK: - AKPickerViewDelegate
     
@@ -870,7 +870,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, AKPickerViewDataSo
             if(floorCounter > homeSetupData.valueForKey("homeSections")!.count - 1){
                 floorCounter = 0
             }
-        floorChoiceLabel.text = homeSections![floorCounter] as! String
+        floorChoiceLabel.text = homeSections![floorCounter] as? String
         currentFloorChoice = homeSections![floorCounter] as! String
 
         }
